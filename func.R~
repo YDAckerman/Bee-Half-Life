@@ -1,0 +1,18 @@
+## Functions for the Bee-half-life project
+
+source("~/R/helper_functions.R")
+
+addDays <- function(.data){
+    ## takes as input a data frame of shape (1,2) with
+    ## columns county and year.
+    ## returns a data frame of shape (#-days-in-bloom, 3) with
+    ## columns county, year, and day.
+    feb1 <- paste0(.data$year,"-","2","-","1")
+    mar31 <- paste0(.data$year,"-","3","-","31")
+    days <- strptime(c(feb1, mar31), "%Y-%m-%d")$yday + 1
+    data.frame(county = .data$county,
+               year = .data$year,
+               day = days[1]:days[2],
+               stringsAsFactors = FALSE)
+}
+
